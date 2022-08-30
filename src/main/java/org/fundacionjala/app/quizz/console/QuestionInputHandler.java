@@ -2,8 +2,11 @@ package org.fundacionjala.app.quizz.console;
 
 import org.fundacionjala.app.quizz.console.util.InputReader;
 import org.fundacionjala.app.quizz.model.Question;
+import org.fundacionjala.app.quizz.model.validator.ValidatorType;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class QuestionInputHandler {
@@ -19,11 +22,26 @@ public class QuestionInputHandler {
             answers.add(collectAnswerFromOptions(question));
         } else {
             System.out.println(question.getType().getName() + " value:");
-            String value = InputReader.readLine();
+            String value = "";
+            List<String> errors;
+            do {
+                errors = new ArrayList<>();
+                value = InputReader.readLine();
+                validateAnswer(value, errors, question.getValidations());
+                if (!errors.isEmpty()) {
+                    System.out.println(errors);
+                }
+            } while (!errors.isEmpty());
             answers.add(value);
         }
 
         return answers;
+    }
+
+    private void validateAnswer(String value, List<String> errors, List<ValidatorType> validations) {
+        for (ValidatorType validatorType: validations) {
+            validatorType.getValidator().validate(value, null, errors);
+        }
     }
 
     private String collectAnswerFromOptions(Question question) {
