@@ -7,7 +7,7 @@ public class UpperCaseValidator implements  Validator {
 
   @Override
   public void validate(String value, String conditionValue, List<String> errors) {
-    if (value.matches("/^[A-Z]+$/g")) {
+    if (!value.matches("/^[A-Z]+$/g")) {
       errors.add(ERROR_MESSAGE);
     }
   }
