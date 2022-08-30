@@ -1,10 +1,10 @@
 package org.fundacionjala.app.quizz.console;
 
+import org.fundacionjala.app.quizz.console.util.InputReader;
+import org.fundacionjala.app.quizz.model.Question;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.fundacionjala.app.quizz.model.Question;
-import org.fundacionjala.app.quizz.console.util.InputReader;
 
 public class QuestionInputHandler {
 
